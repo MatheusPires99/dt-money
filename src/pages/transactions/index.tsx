@@ -1,5 +1,6 @@
 import { Header } from "../../components/header";
 import { Summary } from "../../components/summary";
+import { SearchForm } from "./search-form";
 import {
   PriceHighlight,
   TransactionsContainer,
@@ -13,6 +14,8 @@ export const Transactions = () => {
       <Summary />
 
       <TransactionsContainer>
+        <SearchForm />
+
         <TransactionsTable>
           <tbody>
             <tr>

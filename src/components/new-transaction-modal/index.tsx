@@ -4,6 +4,8 @@ import { ArrowCircleDown, ArrowCircleUp, X } from "phosphor-react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { useTransactions } from "../../contexts/TransactionsContext";
+import { api } from "../../lib/api";
 import {
   CloseButton,
   Content,
@@ -22,9 +24,12 @@ const newTransactionSchema = z.object({
 type NewTranscationData = z.infer<typeof newTransactionSchema>;
 
 export const NewTranscationModal = () => {
+  const { createTransaction } = useTransactions();
+
   const {
     register,
     handleSubmit,
+    reset,
     control,
     formState: { isSubmitting },
   } = useForm<NewTranscationData>({
@@ -32,7 +37,11 @@ export const NewTranscationModal = () => {
   });
 
   const handleCreateNewTransaction = async (data: NewTranscationData) => {
-    console.log(data);
+    const { description, price, category, type } = data;
+
+    createTransaction({ description, price, category, type });
+
+    reset();
   };
 
   return (
